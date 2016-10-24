@@ -1,5 +1,4 @@
-require "black_box/version"
+require 'singleton'
+require 'active_support'
 
-module BlackBox
-  # Your code goes here...
-end
+require 'black_box/version'
