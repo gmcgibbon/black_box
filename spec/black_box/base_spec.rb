@@ -20,7 +20,7 @@ describe BlackBox::Base do
 
     subject { Class.new BlackBox::Base }
 
-    it_should_behave_like 'black_box'
+    before { expect_any_instance_of(subject).to receive(:initialize_subject) }
 
     describe '.instance' do
 
@@ -31,6 +31,14 @@ describe BlackBox::Base do
       end
 
     end
+
+  end
+
+  describe 'subclass' do
+
+    subject { Class.new BlackBox::Base }
+
+    it_should_behave_like 'black_box'
 
   end
 
