@@ -26,4 +26,42 @@ shared_examples 'black_box' do
 
   end
 
+  describe '.accept' do
+
+    let(:attributes) { %i(red green blue) }
+
+    before { subject.accept *attributes }
+
+    it 'should push attributes to box_attributes' do
+      expect(subject.box_attributes).to eq attributes
+    end
+
+    it 'should have accessors for attributes' do
+      attributes.each do |attribute|
+        expect(subject).to respond_to attribute
+        expect(subject).to respond_to :"#{attribute}="
+      end
+    end
+
+    context 'duplicate keys' do
+
+      let(:attributes) { %i(red red green blue) }
+
+      it 'should push unique attributes to box_attributes' do
+        expect(subject.box_attributes).to_not eq attributes
+        expect(subject.box_attributes).to eq attributes.uniq
+      end
+    end
+
+    context 'instance' do
+
+      it 'should have accessors for attributes' do
+        attributes.each do |attribute|
+          expect(instance).to respond_to attribute
+          expect(instance).to respond_to :"#{attribute}="
+        end
+      end
+    end
+  end
+
 end
