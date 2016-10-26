@@ -20,6 +20,8 @@ describe BlackBox::Base do
 
     subject { Class.new BlackBox::Base }
 
+    it_should_behave_like 'black_box'
+
     describe '.instance' do
 
       let(:instance) { subject.instance }

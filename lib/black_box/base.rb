@@ -1,10 +1,11 @@
 class BlackBox::Base
-  include Singleton
+  include BlackBox::Concern
 
   private
 
   def initialize
     check_abstract
+    initialize_subject
   end
 
   def check_abstract
