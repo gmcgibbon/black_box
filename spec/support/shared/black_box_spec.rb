@@ -23,11 +23,8 @@ shared_examples 'black_box' do
         it 'should be an instance of subject' do
           expect(instance.subject).to be_a klass
         end
-
       end
-
     end
-
   end
 
   describe '.accept' do

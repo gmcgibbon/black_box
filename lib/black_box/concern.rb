@@ -33,6 +33,10 @@ module BlackBox::Concern
       self.singleton_class.class_eval { delegate *methods, to: :instance }
       delegate *methods, to: :subject
     end
+
+    def configure
+      yield self if block_given?
+    end
   end
 
   private
