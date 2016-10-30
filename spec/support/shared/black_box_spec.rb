@@ -112,4 +112,35 @@ shared_examples 'black_box' do
     end
   end
 
+  describe '.configure' do
+
+    context 'with block' do
+
+      before do
+        subject.subject klass
+        subject.box_attributes.clear
+        subject.box_methods.clear
+      end
+
+      it 'should yield self' do
+        expect do |block|
+          subject.configure &block
+        end.to yield_with_args(subject)
+      end
+    end
+
+    context 'no block' do
+
+      before do
+        subject.subject klass
+        subject.box_attributes.clear
+        subject.box_methods.clear
+      end
+
+      it 'should not yield self' do
+        expect(subject.configure).to be_nil
+      end
+    end
+  end
+
 end
