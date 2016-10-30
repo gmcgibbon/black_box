@@ -4,7 +4,7 @@ module BlackBox::Concern
   included do
     include Singleton
 
-    BOX_ATTRIBUTES = %i(box_attributes box_class)
+    BOX_ATTRIBUTES = %i(box_attributes box_methods box_class)
 
     BOX_ATTRIBUTES.each do |attribute|
       cattr_accessor(attribute) do
@@ -25,6 +25,13 @@ module BlackBox::Concern
       box_attributes.push *attributes
       box_attributes.uniq!
       cattr_accessor *attributes
+    end
+
+    def expose(*methods)
+      box_methods.push *methods
+      box_methods.uniq!
+      self.singleton_class.class_eval { delegate *methods, to: :instance }
+      delegate *methods, to: :subject
     end
   end
 
