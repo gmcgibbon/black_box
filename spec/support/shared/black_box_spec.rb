@@ -1,6 +1,10 @@
-shared_examples 'black_box' do
+shared_examples 'black_box' do |options = {}|
 
-  let(:klass) { Hash }
+  options[:class]      ||= Hash
+  options[:attributes] ||= %i(red green blue)
+  options[:methods]    ||= %i(size any? empty?)
+
+  let(:klass) { options[:class] }
 
   let(:instance) { subject.instance }
 
@@ -29,7 +33,7 @@ shared_examples 'black_box' do
 
   describe '.accept' do
 
-    let(:attributes) { %i(red green blue) }
+    let(:attributes) { options[:attributes] }
 
     before do
       subject.subject klass
@@ -50,7 +54,7 @@ shared_examples 'black_box' do
 
     context 'duplicate keys' do
 
-      let(:attributes) { %i(red red green blue) }
+      let(:attributes) { options[:attributes] + options[:attributes].first(1) }
 
       it 'should push unique attributes to box_attributes' do
         expect(subject.box_attributes).to_not eq attributes
@@ -71,7 +75,7 @@ shared_examples 'black_box' do
 
   describe '.expose' do
 
-    let(:methods) { %i(size any? empty?) }
+    let(:methods) { options[:methods] }
 
     before do
       subject.subject klass
@@ -91,7 +95,7 @@ shared_examples 'black_box' do
 
     context 'duplicate keys' do
 
-      let(:methods) { %i(size size any? empty?) }
+      let(:methods) { options[:methods] + options[:methods].first(1) }
 
       it 'should push unique methods to box_methods' do
         expect(subject.box_methods).to_not eq methods
@@ -111,13 +115,13 @@ shared_examples 'black_box' do
 
   describe '.configure' do
 
-    context 'with block' do
+    before do
+      subject.subject klass
+      subject.box_attributes.clear
+      subject.box_methods.clear
+    end
 
-      before do
-        subject.subject klass
-        subject.box_attributes.clear
-        subject.box_methods.clear
-      end
+    context 'with block' do
 
       it 'should yield self' do
         expect do |block|
@@ -128,14 +132,8 @@ shared_examples 'black_box' do
 
     context 'no block' do
 
-      before do
-        subject.subject klass
-        subject.box_attributes.clear
-        subject.box_methods.clear
-      end
-
-      it 'should not yield self' do
-        expect(subject.configure).to be_nil
+      it 'should not raise error' do
+        expect { subject.configure }.to_not raise_error
       end
     end
   end
