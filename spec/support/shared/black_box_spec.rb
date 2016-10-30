@@ -6,7 +6,11 @@ shared_examples 'black_box' do
 
   describe '.subject' do
 
-    before { subject.subject klass }
+    before do
+      subject.subject klass
+      subject.box_attributes.clear
+      subject.box_methods.clear
+    end
 
     it 'should assign box_class' do
       expect(subject.box_class).to eq klass
@@ -30,7 +34,11 @@ shared_examples 'black_box' do
 
     let(:attributes) { %i(red green blue) }
 
-    before { subject.accept *attributes }
+    before do
+      subject.subject klass
+      subject.box_methods.clear
+      subject.accept *attributes
+    end
 
     it 'should push attributes to box_attributes' do
       expect(subject.box_attributes).to eq attributes
