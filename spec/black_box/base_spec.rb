@@ -2,16 +2,17 @@ require 'spec_helper'
 
 describe BlackBox::Base do
 
-  describe '.instance' do
+  describe '#new' do
 
-    let(:instance)  { described_class.instance }
     let(:exception) { NotImplementedError }
     let(:exception_text) do
       "#{described_class} is an abstract class and cannot be instantiated."
     end
 
     it 'should raise NotImplementedError' do
-      expect { instance }.to raise_error exception, exception_text
+      expect do
+        described_class.new
+      end.to raise_error exception, exception_text
     end
   end
 
