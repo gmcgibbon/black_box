@@ -12,8 +12,6 @@ shared_examples 'black_box' do |options = {}|
 
     before do
       described_class.subject klass
-      described_class.box_attributes.clear
-      described_class.box_methods.clear
     end
 
     it 'should assign box_class' do
