@@ -1,10 +1,10 @@
 module BlackBox::Concern
   extend ActiveSupport::Concern
 
+  BOX_ATTRIBUTES = %i(box_attributes box_methods box_class)
+
   included do
     include Singleton
-
-    BOX_ATTRIBUTES = %i(box_attributes box_methods box_class)
 
     BOX_ATTRIBUTES.each do |attribute|
       cattr_accessor(attribute) do

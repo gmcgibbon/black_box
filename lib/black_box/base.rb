@@ -1,15 +1,13 @@
 class BlackBox::Base
-  include BlackBox::Concern
+
+  def initialize
+    raise abstract_error
+  end
 
   private
 
-  def initialize
-    check_abstract
-    initialize_subject
-  end
-
-  def check_abstract
-    raise abstract_error if self.class.eql? BlackBox::Base
+  def self.inherited(subclass)
+    subclass.include BlackBox::Concern
   end
 
   def abstract_error
