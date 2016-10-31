@@ -13,7 +13,6 @@ describe BlackBox::Base do
     it 'should raise NotImplementedError' do
       expect { instance }.to raise_error exception, exception_text
     end
-
   end
 
   context 'subclass' do
@@ -29,14 +28,10 @@ describe BlackBox::Base do
       it 'should not raise error' do
         expect { instance }.to_not raise_error
       end
-
     end
-
   end
 
-  describe 'subclass' do
-
-    subject { Class.new BlackBox::Base }
+  describe Class.new(BlackBox::Base) do
 
     it_should_behave_like 'black_box'
 

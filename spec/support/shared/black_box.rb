@@ -6,18 +6,18 @@ shared_examples 'black_box' do |options = {}|
 
   let(:klass) { options[:class] }
 
-  let(:instance) { subject.instance }
+  let(:instance) { described_class.instance }
 
   describe '.subject' do
 
     before do
-      subject.subject klass
-      subject.box_attributes.clear
-      subject.box_methods.clear
+      described_class.subject klass
+      described_class.box_attributes.clear
+      described_class.box_methods.clear
     end
 
     it 'should assign box_class' do
-      expect(subject.box_class).to eq klass
+      expect(described_class.box_class).to eq klass
     end
 
     context 'instance' do
@@ -36,19 +36,19 @@ shared_examples 'black_box' do |options = {}|
     let(:attributes) { options[:attributes] }
 
     before do
-      subject.subject klass
-      subject.box_methods.clear
-      subject.accept *attributes
+      described_class.subject klass
+      described_class.box_methods.clear
+      described_class.accept *attributes
     end
 
     it 'should push attributes to box_attributes' do
-      expect(subject.box_attributes).to eq attributes
+      expect(described_class.box_attributes).to eq attributes
     end
 
     it 'should have accessors for attributes' do
       attributes.each do |attribute|
-        expect(subject).to respond_to attribute
-        expect(subject).to respond_to :"#{attribute}="
+        expect(described_class).to respond_to attribute
+        expect(described_class).to respond_to :"#{attribute}="
       end
     end
 
@@ -57,8 +57,8 @@ shared_examples 'black_box' do |options = {}|
       let(:attributes) { options[:attributes] + options[:attributes].first(1) }
 
       it 'should push unique attributes to box_attributes' do
-        expect(subject.box_attributes).to_not eq attributes
-        expect(subject.box_attributes).to eq attributes.uniq
+        expect(described_class.box_attributes).to_not eq attributes
+        expect(described_class.box_attributes).to eq attributes.uniq
       end
     end
 
@@ -78,18 +78,18 @@ shared_examples 'black_box' do |options = {}|
     let(:methods) { options[:methods] }
 
     before do
-      subject.subject klass
-      subject.box_attributes.clear
-      subject.expose *methods
+      described_class.subject klass
+      described_class.box_attributes.clear
+      described_class.expose *methods
     end
 
     it 'should push methods to box_methods' do
-      expect(subject.box_methods).to eq methods
+      expect(described_class.box_methods).to eq methods
     end
 
     it 'should delegate methods' do
       methods.each do |method|
-        expect(subject).to delegate_method(method).to :instance
+        expect(described_class).to delegate_method(method).to :instance
       end
     end
 
@@ -98,8 +98,8 @@ shared_examples 'black_box' do |options = {}|
       let(:methods) { options[:methods] + options[:methods].first(1) }
 
       it 'should push unique methods to box_methods' do
-        expect(subject.box_methods).to_not eq methods
-        expect(subject.box_methods).to eq methods.uniq
+        expect(described_class.box_methods).to_not eq methods
+        expect(described_class.box_methods).to eq methods.uniq
       end
     end
 
@@ -116,24 +116,24 @@ shared_examples 'black_box' do |options = {}|
   describe '.configure' do
 
     before do
-      subject.subject klass
-      subject.box_attributes.clear
-      subject.box_methods.clear
+      described_class.subject klass
+      described_class.box_attributes.clear
+      described_class.box_methods.clear
     end
 
     context 'with block' do
 
       it 'should yield self' do
         expect do |block|
-          subject.configure &block
-        end.to yield_with_args(subject)
+          described_class.configure &block
+        end.to yield_with_args(described_class)
       end
     end
 
     context 'no block' do
 
       it 'should not raise error' do
-        expect { subject.configure }.to_not raise_error
+        expect { described_class.configure }.to_not raise_error
       end
     end
   end
