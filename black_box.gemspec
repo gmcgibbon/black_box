@@ -6,7 +6,7 @@ require 'black_box/version'
 Gem::Specification.new do |spec|
   spec.name          = 'black_box'
   spec.version       = BlackBox::VERSION
-  spec.authors       = %w(Gannon McGibbon)
+  spec.authors       = %w(Gannon\ McGibbon)
   spec.email         = %w(gannon.mcgibbon@gmail.com)
 
   spec.summary       = 'Static wrappers for instantiated classes'
