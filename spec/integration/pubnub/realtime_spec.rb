@@ -12,7 +12,8 @@ describe Realtime do
     end
   end
 
-  it_should_behave_like('black_box',
+  it_should_behave_like(
+    'black_box',
     class:      Pubnub::Client,
     attributes: %i(subscribe_key publish_key secret_key logger ssl),
     methods:    %i(publish subscribe)
@@ -42,7 +43,7 @@ describe Realtime do
     end
 
     let(:block) do
-      -> (message) { }
+      -> (message) {}
     end
 
     before do
