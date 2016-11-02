@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake',             '~> 10.0'
   spec.add_development_dependency 'rspec',            '~> 3.0'
   spec.add_development_dependency 'shoulda-matchers', '~> 3.1'
+  spec.add_development_dependency 'rubocop',          '~> 0.44'
   spec.add_development_dependency 'analytics-ruby'
   spec.add_development_dependency 'pubnub'
 end
