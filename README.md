@@ -1,5 +1,7 @@
 # BlackBox
 
+[![Build Status](https://travis-ci.org/gmcgibbon/black_box.svg?branch=master)](https://travis-ci.org/gmcgibbon/black_box)
+
 Static wrappers for instantiated classes.
 
 ## Installation
