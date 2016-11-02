@@ -36,7 +36,7 @@ shared_examples 'black_box' do |options = {}|
     before do
       described_class.subject klass
       described_class.box_methods.clear
-      described_class.accept *attributes
+      described_class.accept(*attributes)
     end
 
     it 'should push attributes to box_attributes' do
@@ -78,7 +78,7 @@ shared_examples 'black_box' do |options = {}|
     before do
       described_class.subject klass
       described_class.box_attributes.clear
-      described_class.expose *methods
+      described_class.expose(*methods)
     end
 
     it 'should push methods to box_methods' do
@@ -123,7 +123,7 @@ shared_examples 'black_box' do |options = {}|
 
       it 'should yield self' do
         expect do |block|
-          described_class.configure &block
+          described_class.configure(&block)
         end.to yield_with_args(described_class)
       end
     end

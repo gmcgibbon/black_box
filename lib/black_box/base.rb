@@ -1,18 +1,22 @@
+# Includes BlackBox::Concern, cannot be instantiated.
 class BlackBox::Base
 
   def initialize
     raise abstract_error
   end
 
-  private
+  class << self
 
-  def self.inherited(subclass)
-    subclass.include BlackBox::Concern
+    private
+
+    def inherited(subclass)
+      subclass.include BlackBox::Concern
+    end
   end
 
   def abstract_error
-    NotImplementedError.new """
+    NotImplementedError.new <<-ERROR.strip.chomp
     #{self.class} is an abstract class and cannot be instantiated.
-    """.strip.chomp
+    ERROR
   end
 end

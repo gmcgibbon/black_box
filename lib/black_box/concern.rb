@@ -1,7 +1,8 @@
+# Include this concern to make your class a black box!
 module BlackBox::Concern
   extend ActiveSupport::Concern
 
-  BOX_ATTRIBUTES = %i(box_attributes box_methods box_class)
+  BOX_ATTRIBUTES = %i(box_attributes box_methods box_class).freeze
 
   included do
     include Singleton
@@ -22,16 +23,16 @@ module BlackBox::Concern
     end
 
     def accept(*attributes)
-      box_attributes.push *attributes
+      box_attributes.push(*attributes)
       box_attributes.uniq!
-      cattr_accessor *attributes
+      cattr_accessor(*attributes)
     end
 
     def expose(*methods)
-      box_methods.push *methods
+      box_methods.push(*methods)
       box_methods.uniq!
-      self.singleton_class.class_eval { delegate *methods, to: :instance }
-      delegate *methods, to: :subject
+      singleton_class.class_eval { delegate(*methods, to: :instance) }
+      delegate(*methods, to: :subject)
     end
 
     def configure
@@ -41,7 +42,9 @@ module BlackBox::Concern
 
   private
 
-  def initialize; initialize_subject; end
+  def initialize
+    initialize_subject
+  end
 
   def initialize_params
     box_attributes.map do |key|

@@ -4,8 +4,8 @@ class Analytics < BlackBox::Base
 
   subject Segment::Analytics
 
-  accept *%i(write_key)
+  accept :write_key
 
-  expose *%i(identify track)
+  expose :identify, :track
 
 end

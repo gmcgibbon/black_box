@@ -1,0 +1,11 @@
+Metrics/BlockLength:
+  Max: 80
+Metrics/LineLength:
+  Max: 80
+
+ClassAndModuleChildren:
+  Enabled: false
+EmptyLinesAroundBlockBody:
+  Enabled: false
+EmptyLinesAroundClassBody:
+  Enabled: false

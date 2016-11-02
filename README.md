@@ -1,8 +1,8 @@
 # BlackBox
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/black_box`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Build Status](https://travis-ci.org/gmcgibbon/black_box.svg?branch=master)](https://travis-ci.org/gmcgibbon/black_box)
 
-TODO: Delete this and the text above, and describe your gem
+Static wrappers for instantiated classes.
 
 ## Installation
 
@@ -14,7 +14,7 @@ gem 'black_box'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -22,7 +22,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+1. Make a box class that extends from `BlockBox::Base` (or includes `BlackBox::Concern`).
+2. Specify a subject class with `.subject`.
+3. Define initialization parameters with `.accept`.
+4. Define methods to delegate with `.expose`.
+5. Set initialization parameters with `.configure`.
+
+```ruby
+# Require your subject
+require 'api_object'
+
+# Make your black box
+class Api < BlackBox::Base
+
+  subject ApiObject
+
+  accept :token, :ssl
+
+  expose :find
+
+end
+
+# Configure your black box
+Api.configure do |api|
+  api.token = 'my_api_token'
+  api.ssl   = true
+end
+
+# Use your black box
+Api.find(12)
+```
 
 ## Development
 
@@ -32,10 +61,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/black_box. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/gmcgibbon/black_box. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
